@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bookshare</title>
+    <%- include('modules/links') %>
+    <link rel="stylesheet" href="/stylesheets/newReview.css" />
+  </head>
+  <body>
+    <header><%- include('modules/navbar') %></header>
+    <main>
+      <div class="d-flex justify-content-center p-5">
+        <form
+          action="/books/newBook/<%= user_id %>"
+          method="post"
+          class="w-25 border border-black rounded-4 p-3 m-5"
+          enctype="multipart/form-data"
+        >
+          <h2 class="text-center">Añadir nuevo libro</h2>
+
+          <div class="mb-3">
+            <label for="inputImg" class="form-label"
+              ><img
+                style="width: 200px"
+                src="/images/books/add-book.jpg"
+                alt=""
+            /></label>
+            <input
+              type="file"
+              class="form-control"
+              id="inputImg"
+              name="img"
+              hidden
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="inputTitle" class="form-label">Título del libro</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputTitle"
+              aria-describedby="titleHelp"
+              name="title"
+              value="<%= formValues?formValues.title:'' %>"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputGenre" class="form-label">Género</label>
+            <select
+              name="genre"
+              class="form-select"
+              aria-label="Default select example"
+              value="<%= formValues?formValues.genre:'' %>"
+            >
+              <option selected>Selecciona el género</option>
+              <option value="Drama">Drama</option>
+              <option value="Fantasía">Fantasía</option>
+              <option value="Poesía">Poesía</option>
+              <option value="Terror">Terror</option>
+              <option value="Juvenil">Juvenil</option>
+              <option value="Ciencia ficción">Ciencia ficción</option>
+              <option value="Novela policíaca">Novela policíaca</option>
+              <option value="Literatura LGBT+">Literatura LGBT+</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="inputAuthor_name" class="form-label"
+              >Nombre completo del autor</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="inputAuthor_name"
+              aria-describedby="author_nameHelp"
+              name="author_name"
+              value="<%= formValues?formValues.author_name:'' %>"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="inputYear_written" class="form-label"
+              >Año de publicación</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="inputYear_written"
+              aria-describedby="year_writtenHelp"
+              name="year_written"
+              value="<%= formValues?formValues.year_written:'' %>"
+            />
+            <p class="text-danger">
+              <%= typeof messageYear != 'undefined' ? messageYear : null %>
+            </p>
+          </div>
+
+          <div class="mb-3">
+            <label for="review" class="form-label">Review</label>
+            <textarea
+              class="form-control"
+              id="review"
+              aria-describedby="reviewHelp"
+              name="review"
+            >
+<%= formValues?formValues.review:'' %></textarea
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="publisher" class="form-label">Editorial</label>
+            <input
+              type="text"
+              class="form-control"
+              id="publisher"
+              aria-describedby="publisherHelp"
+              name="publisher"
+              value="<%= formValues?formValues.publisher:'' %>"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="rating" class="form-label">rating</label>
+            <div class="starrating">
+              <input type="radio" id="star5" name="rating" value="5" />
+              <label for="star5" title="5 estrellas">★</label>
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label for="star4" title="4 estrellas">★</label>
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label for="star3" title="3 estrellas">★</label>
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label for="star2" title="2 estrellas">★</label>
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label for="star1" title="1 estrella">★</label>
+            </div>
+          </div>
+
+          <p class="text-danger">
+            <%= typeof message != 'undefined' ? message : null %>
+          </p>
+          <div class="d-flex gap-2 mb-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="window.location.href = '/artist/profile/<%= user_id %>'"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <%- include('modules/scripts') %>
+  </body>
+</html>

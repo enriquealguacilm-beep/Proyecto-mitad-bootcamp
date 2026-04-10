@@ -1,0 +1,27 @@
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+  crossorigin="anonymous"
+></script>
+
+<script>
+  const selectPreferences = () => {
+    let checkboxesMarcados = document.querySelectorAll('.preference:checked');
+    let inputHidden = document.getElementById('inputPreferences');
+    let inputValue = '';
+
+    checkboxesMarcados.forEach((checkbox, pos) => {
+      if (pos > 0) {
+        inputValue += ', ';
+      }
+
+      inputValue += checkbox.value;
+    });
+
+    inputHidden.value = inputValue;
+  };
+
+  document.querySelectorAll('.preference').forEach((checkbox) => {
+    checkbox.addEventListener('change', selectPreferences);
+  });
+</script>

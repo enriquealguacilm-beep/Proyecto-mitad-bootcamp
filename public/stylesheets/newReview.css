@@ -1,0 +1,25 @@
+.starrating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+
+  input {
+    display: none;
+
+    &:checked ~ label {
+      color: gold;
+    }
+  }
+
+  label {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover,
+    &:hover ~ label {
+      color: gold;
+    }
+  }
+}
