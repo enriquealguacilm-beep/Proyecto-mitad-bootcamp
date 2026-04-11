@@ -5,64 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Usuarios</title>
     <%- include('modules/links') %>
+    <link rel="stylesheet" href="/stylesheets/index.css">
   </head>
   <body>
-    <header><%- include('modules/navbar') %></header>
-    <main>
-      <h1>Todos los usuarios</h1>
-
-       <div class="d-flex flex-wrap justify-content-center gap-3">
-       
-       <% users.forEach((elem) =>{ %>
-
-        <div class="card" style="width: 18rem" onclick="window.location.href='/users/profile/<%= elem.user_id %>'">
-          <img src="/images/users/<%= elem.avatar?elem.avatar:'user.jpg'%> " 
-          class="card-img-top" alt="" />
-          <div class="card-body">
-            <h5 class="card-title"> <%= elem.name %></h5>
-            <p class="card-text">
-              <%= elem.last_name %>
-            </p>
-            <p class="card-text">
-              <%= elem.email %>
-            </p>
-            
-            
+    <div class="index">
+      <header><%- include('modules/navbar') %></header>
+      <main>
+        <section class="section-community container-fluid">
+          <h2 id="community">Nuestra comunidad</h2>
+           <div class="row justify-content-center gap-5 py-5 px-3">
+           <% users.forEach((elem) =>{ %>
+            <div class="col-2 user-card mouse"  onclick="window.location.href='/users/profile/<%= elem.user_id %>'">
+              <img src="/images/users/<%= elem.avatar?elem.avatar:'user.jpg'%> "
+              class="card-img-top" alt="" />
+              <div class="user-card-body">
+                <h5 class="user-card-title"> <%= elem.name %> <%= elem.last_name %></h5>
+                <p>
+                  <%= elem.preferences %>
+                </p>
+                <p>
+                  <%= elem.email %>
+                </p>
+              </div>
+            </div>
+                 <% }) %>
           </div>
-        </div>
-
-     <% }) %>
-
-      </div>
-
-      <h2>Últimas rewiews</h2>
-       <div class="d-flex flex-wrap justify-content-center gap-3">
-       
-       <% reviews.forEach((rev) =>{ %>
-
-        <div class="card" style="width: 18rem">
-          <img src="/images/users/<%= rev.avatar?rev.avatar:'user.jpg'%> " 
-          class="card-img-top" alt="" />
-          <div class="card-body">
-            <h5 class="card-title"> <%= rev.name %></h5>
-            <p class="card-text">
-              <%= rev.last_name %>
-            </p>
-            <p class="card-text">
-              <%= rev.title %>
-            </p>
-            <p class="card-text rating">
-              <%= rev.rating %>
-            </p>
-            <a href="/users/profile/<%= rev.user_id %>" class="btn btn-primary">Ver perfil</a>
-            
-          </div>
-        </div>
-
-     <% }) %>
-
-      </div>
-    </main>
-    <%- include('modules/scripts') %>
+        </section>
+        <section class="section-reviews container-fluid">
+          <h2>Actividad reciente</h2>
+           <div class="d-flex flex-wrap justify-content-center gap-2">
+           <% reviews.forEach((rev) =>{ %>
+            <div class="row review-card mouse" onclick="window.location.href='/users/profile/<%= rev.user_id %>'" >
+              <img src="/images/users/<%= rev.avatar?rev.avatar:'user.jpg'%> "
+              class="col" alt="" />
+              <div class="col">
+                <h5 class="card-title"> <%= rev.name %></h5>
+                <p class="">
+                  <%= rev.last_name %>
+                </p>
+                <p class="">
+                  <%= rev.title %>
+                </p>
+                <p class=" rating">
+                  <%= rev.rating %>
+                </p>
+                <a  class="btn btn-primary">Ir al perfil</a>
+              </div>
+            </div>
+                 <% }) %>
+        </section>
+      </main>
+      <%- include('modules/scripts') %>
+    </div>
   </body>
 </html>

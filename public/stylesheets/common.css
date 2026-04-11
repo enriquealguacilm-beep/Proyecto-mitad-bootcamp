@@ -1,4 +1,88 @@
+:root {
+  --cl-main: #621c27;
+  --cl-secondary: #02605d;
+  --cl-bg: #fcf7e1;
+  --cl-light: white;
+}
+
+a {
+  display: inline-block;
+}
+
 .rating {
   font-size: 30px;
   color: gold;
+}
+
+body {
+  background-color: var(--cl-main);
+
+  .index {
+    min-block-size: 95vh;
+    margin: 1.5rem;
+    border-radius: 25px;
+    background-color: var(--cl-bg);
+    border: 10px solid var(--cl-secondary);
+  }
+
+  .web-header {
+    border-start-start-radius: 13px;
+    border-start-end-radius: 13px;
+  }
+}
+.buttn {
+  text-decoration: none;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  background-color: var(--cl-secondary);
+  padding: 0.5rem 2rem;
+  inline-size: fit-content;
+  block-size: fit-content;
+  border-radius: 15px;
+}
+
+.user-card {
+  inline-size: 25rem;
+  text-align: center;
+  border: 2px solid var(--cl-secondary);
+  border-radius: 25px;
+  padding: 1rem;
+
+  img {
+    inline-size: 12.5rem;
+    border-radius: 50%;
+  }
+
+  .user-card-body {
+    padding-top: 1rem;
+  }
+}
+
+.review-card {
+  margin: 0.5rem;
+  inline-size: 21.875rem;
+  background-color: var(--cl-light);
+  border: 2px solid var(--cl-secondary);
+  border-radius: 25px;
+  padding-inline-end: 1rem;
+  padding-block: 1rem;
+
+  img {
+    inline-size: 9.375rem;
+  }
+}
+
+.mouse {
+  transform: scale(1);
+  box-shadow: none;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 2px 2px 2px rgba(18, 17, 17, 0.432);
+    transition-duration: 0.2s;
+  }
 }

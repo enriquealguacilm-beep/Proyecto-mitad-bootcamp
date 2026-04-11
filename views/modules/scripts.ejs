@@ -25,3 +25,27 @@
     checkbox.addEventListener('change', selectPreferences);
   });
 </script>
+
+<script>
+  const addImg = document.getElementById('addImg');
+  const imgAdded = document.getElementById('imgAdded');
+
+  imgAdded.addEventListener('change', () => {
+    if (imgAdded.files.length > 0) {
+      addImg.src = '/images/assets/added.png';
+    }
+  });
+</script>
+
+<script>
+  const modal = document.getElementById('modal');
+  const openBtn = document.getElementById('open-modal');
+  const closeBtn = document.getElementById('close-modal');
+
+  openBtn.addEventListener('click', () => {
+    modal.showModal();
+  });
+  closeBtn.addEventListener('click', () => {
+    modal.close();
+  });
+</script>

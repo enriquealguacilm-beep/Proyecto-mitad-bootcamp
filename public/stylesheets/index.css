@@ -1,0 +1,42 @@
+.web-header {
+  block-size: 100vh;
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.65) 0%,
+      rgb(0 0 0 / 0.35) 50%,
+      var(--cl-bg) 100%
+    ),
+    url('/images/assets/portada.png');
+  background-size: cover;
+  background-position: center;
+
+  .welcome {
+    block-size: 100%;
+
+    h1 {
+      font-size: clamp(2rem, 8vh, 3.5rem);
+      color: var(--cl-light);
+      padding-block: 1rem;
+    }
+  }
+}
+
+.section-community {
+  padding-block: 4rem;
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--cl-main);
+  }
+}
+
+.section-reviews {
+  padding-block-end: 4rem;
+  h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--cl-main);
+  }
+}

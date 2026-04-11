@@ -12,12 +12,12 @@
     <main>
       <div class="d-flex justify-content-center p-5">
         <form
-          action="/books/newBook/<%= user_id %>"
+          action="/books/editBook/<%= book.book_id %>/<%= book.user_id %>"
           method="post"
           class="w-25 border border-black rounded-4 p-3 m-5"
           enctype="multipart/form-data"
         >
-          <h2 class="text-center">Añadir nuevo libro</h2>
+          <h2 class="text-center">Editar libro</h2>
 
           <div class="mb-3">
             <label for="imgAdded" class="form-label"
@@ -44,27 +44,8 @@
               id="inputTitle"
               aria-describedby="titleHelp"
               name="title"
-              value="<%= formValues?formValues.title:'' %>"
+              value="<%= book.title %>"
             />
-          </div>
-          <div class="mb-3">
-            <label for="inputGenre" class="form-label">Género</label>
-            <select
-              name="genre"
-              class="form-select"
-              aria-label="Default select example"
-              value="<%= formValues?formValues.genre:'' %>"
-            >
-              <option selected>Selecciona el género</option>
-              <option value="Drama">Drama</option>
-              <option value="Fantasía">Fantasía</option>
-              <option value="Poesía">Poesía</option>
-              <option value="Terror">Terror</option>
-              <option value="Juvenil">Juvenil</option>
-              <option value="Ciencia ficción">Ciencia ficción</option>
-              <option value="Novela policíaca">Novela policíaca</option>
-              <option value="Literatura LGBT+">Literatura LGBT+</option>
-            </select>
           </div>
 
           <div class="mb-3">
@@ -77,7 +58,7 @@
               id="inputAuthor_name"
               aria-describedby="author_nameHelp"
               name="author_name"
-              value="<%= formValues?formValues.author_name:'' %>"
+              value="<%= book.author_name %>"
             />
           </div>
 
@@ -91,7 +72,7 @@
               id="inputYear_written"
               aria-describedby="year_writtenHelp"
               name="year_written"
-              value="<%= formValues?formValues.year_written:'' %>"
+              value="<%= book.year_written %>"
             />
             <p class="text-danger">
               <%= typeof messageYear != 'undefined' ? messageYear : null %>
@@ -106,7 +87,7 @@
               aria-describedby="reviewHelp"
               name="review"
             >
-<%= formValues?formValues.review:'' %></textarea
+<%= book.review %></textarea
             >
           </div>
 
@@ -118,7 +99,7 @@
               id="publisher"
               aria-describedby="publisherHelp"
               name="publisher"
-              value="<%= formValues?formValues.publisher:'' %>"
+              value="<%= book.publisher %>"
             />
           </div>
 
@@ -137,16 +118,18 @@
               <label for="star1" title="1 estrella">★</label>
             </div>
           </div>
-
           <p class="text-danger">
-            <%= typeof message != 'undefined' ? message : null %>
+            <%= typeof messageRating != 'undefined' ? messageRating : null %>
           </p>
+
           <div class="d-flex gap-2 mb-2">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button
               type="button"
               class="btn btn-primary"
-              onclick="window.location.href = '/users/profile/<%= user_id %>'"
+              onclick="
+                window.location.href = '/users/profile/<%= book.user_id %>'
+              "
             >
               Cancelar
             </button>

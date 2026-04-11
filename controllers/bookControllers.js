@@ -48,6 +48,75 @@ class BookControllers{
     
   }
 
+  showEditBook = (req,res) => {
+    const { book_id } = req.params;
+    let sql = 'SELECT * FROM book WHERE book_id = ? AND book_is_deleted = 0';
+
+    connection.query(sql, [book_id], (err, result) => {
+      if (err){
+        throw err;
+      }
+      else {
+        res.render("editBook", {book: result[0]});
+      }
+    })
+  }
+
+
+
+  editBook = (req,res) => {
+    const { book_id, user_id } = req.params;
+    const {title, author_name, year_written, review, publisher,rating } = req.body;
+
+    if (!rating){
+      res.render('editBook', {book_id, messageRating: "Debes actualizar la valoración"});
+      
+    }
+    else if (!isNumber(year_written) || year_written.trim().length > 4){
+      res.render('editBook', {book_id, messageYear: "El año introducido no es válido"});
+    }
+    else {
+      let release = Number(year_written);
+      let sql = `
+      UPDATE book 
+      SET title = ?,  author_name = ?, year_written = ?, review = ?, publisher = ?,rating = ?
+      WHERE book_id = ? AND book_is_deleted = 0`;
+      let values = [title, author_name, year_written, review, publisher, rating, book_id];
+
+      if (req.file) {
+        sql = `
+          UPDATE book 
+          SET title = ?, author_name = ?, year_written = ?, review = ?, publisher = ?,rating = ?, picture = ?
+          WHERE book_id = ? AND book_is_deleted = 0`;
+          values = [title, author_name, year_written, review, publisher, rating, req.file.filename, book_id];
+      }
+
+      connection.query(sql, values, (err, result) => {
+        if (err){
+          throw err;
+        }
+        else {
+          res.redirect(`/users/profile/${user_id}`);
+        }
+      })
+
+    }
+  }
+
+  delete = (req, res) => {
+    const { book_id, user_id} = req.params;
+    let sql = 'DELETE FROM book WHERE book_id = ?'
+
+    connection.query(sql, [book_id], (err, result) => {
+      if (err) {
+        throw err;
+      }
+      else {
+        res.redirect(`/users/profile/${user_id}#books`);
+      }
+    })
+  }
+
   
 }
 

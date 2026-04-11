@@ -4,7 +4,7 @@ const getStars = require('../utils/starrating');
 class IndexController {
 
   home = (req,res) => {
-    let sqlUser = 'SELECT * FROM user WHERE user_is_deleted = 0';
+    let sqlUser = 'SELECT * FROM user WHERE user_is_deleted = 0 ORDER BY user_id desc';
     let sqlReviews = `
         SELECT b.*, u.name, u.last_name, u.avatar 
         FROM book b, user u 
@@ -33,6 +33,10 @@ class IndexController {
       }
     })
 
+  }
+
+  back = (req, res) => {
+    res.redirect('/#community')
   }
 
 

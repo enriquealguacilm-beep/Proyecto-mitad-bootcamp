@@ -50,26 +50,26 @@ class UserControllers {
   }
 
   profile = (req, res) => {
-    const {id} = req.params;
+    const {user_id} = req.params;
     let sqlUser = 'SELECT * FROM user WHERE user_id = ? AND user_is_deleted = 0';
-    let sqlBooks = 'SELECT * FROM book WHERE user_id = ? AND book_is_deleted = 0';
+    let sqlBooks = 'SELECT * FROM book WHERE user_id = ? AND book_is_deleted = 0 ORDER BY book_id desc';
 
-    connection.query(sqlUser, [id], (err, result) => {
+    connection.query(sqlUser, [user_id], (err, result) => {
       if (err){
         throw err;
       }
       else {
         
-        connection.query(sqlBooks, [id], (err2, resultBooks) => {
+        connection.query(sqlBooks, [user_id], (err2, resultBooks) => {
           if (err2){
             throw err2;
           }
-          else {
+          else {console.log("asfgbbassssssssssssssssssssss",resultBooks);
             resultBooks.forEach((elem) =>{
               elem.rating = getStars(elem.rating);
             })
-            res.render('profile', { user: result[0], resultBooks});
-            console.log(resultBooks);
+            res.render('profile', { user: result[0], resultBooks,  formValues: req.body});
+            
             
           }
         })

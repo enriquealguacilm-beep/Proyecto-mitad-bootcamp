@@ -6,77 +6,112 @@
     <title>Perfil de <%= `${user.name} ${user.last_name}` %></title>
     
     <%- include('modules/links') %>
+    <link rel="stylesheet" href="/stylesheets/profile.css">
      
   </head>
   <body>
-    <header><%- include('modules/navbar') %></header>
-    <main>
-      <h1><%= `${user.name} ${user.last_name}` %></h1>
-      <div class="container-xxl">
-        <div class="row">
-          <div class="col text-center">
-            <img
-              class=""
-              src="/images/users/<%= user.avatar?user.avatar:'user.jpg'%> "
-              alt=""
-            />
+    <div class="index">
+      <header>
+        <nav class="web-navbar">
+          <div class="row align-items-center  nvbar">
+            <div class="col ">
+              <button class="buttn mouse mx-2" onclick="window.location.href='/'">Inicio</button>
+            <button id="open-modal" type="button" class="buttn mouse">Añadir libro</button>
+            
           </div>
-          <div class="col align-content-center">
+          <button class="buttn mouse mx-2" onclick="window.location.href='/back'">Atrás</button>
           
-            <h3><span class="fw-bold">E-mail:</span> <%= user.email %></h3>
-            <h3><span class="fw-bold">Preferencias:</span> <%= user.preferences %></h3>
-            <div class="text-center">
-              <button class="btn btn-secondary" onclick="window.location.href='/books/newBook/<%= user.user_id %>'">Añadir libro</button>
-               <button class="btn btn-secondary" onclick="window.location.href='/'">Atrás</button>
+          </div>
+        </nav>
+      </header>
+      <main>
+        
+        <div class="container-xxl">
+          <div class="row profile">
+            <div class="col-12 col-xl-4 text-center ">
+              <img
+                class="g-5"
+                src="/images/users/<%= user.avatar?user.avatar:'user.jpg'%> "
+                alt=""
+              />
+            </div>
+            <div class="col align-content-center">
+              <h1><%= `${user.name} ${user.last_name}` %></h1>
+              <h3><span class="fw-bold">E-mail:</span> <%= user.email %></h3>
+              <h3><span class="fw-bold">Preferencias:</span> <%= user.preferences %></h3>
+              
             </div>
           </div>
-        </div>
-      <div class="mb-5">
-          <h2 class="text-center p-4">Libros</h2>
+         </div>
+         <div class="container-xxl line"></div>
+         <div class="container-fluid py-5">
 
-          <div class="">
-            <% resultBooks.forEach((elem) =>{ %>
-              
-            <div class="row">
-              
-                <div class="col text-center">
-                  <img src="/images/books/<%= elem.picture?elem.picture:'user.jpg'%> "
-                  class="" alt="" />
+          <% if(resultBooks.length > 0) {  %>
+            <h2 id="books" class="text-center p-4">Libros</h2>
+            <div class="">
+              <% resultBooks.forEach((elem) =>{ %>
+      
+              <div class="book">
+                <div class="row p-2">
+                    <div class="col-12 col-xl-4 text-center align-content-center">
+                      <img src="/images/books/<%= elem.picture?elem.picture:'user.jpg'%> "
+                      class="" alt="" />
+                    </div>
+                  <div class="col-12 col-xl-3  align-content-center data ">
+                    <h5 class=""> <%= elem.title %></h5>
+                    <p>
+                      <span class="fw-bold">Autor: </span><%= elem.author_name %>
+                    </p>
+                    <p>
+                      <span class="fw-bold">Género: </span><%= elem.genre %>
+                    </p>
+                    <p>
+                      <span class="fw-bold">Año de publicación: </span><%= elem.year_written %>
+                    </p>
+                    <p>
+                      <span class="fw-bold">Editorial: </span><%= elem.publisher %>
+                    </p>
+                    <p class="rating">
+                      <%= elem.rating %>
+                    </p>
+                
                 </div>
-              <div class="col">
-                <h5 class=""> <%= elem.title %></h5>
-                <p>
-                  <span class="fw-bold">Autor: </span><%= elem.author_name %>
-                </p>
-                <p>
-                  <span class="fw-bold">Género: </span><%= elem.genre %>
-                </p>
-                <p>
-                  <span class="fw-bold">Año de publicación: </span><%= elem.year_written %>
-                </p>
-                <p>
-                  <span class="fw-bold">Editorial: </span><%= elem.publisher %>
-                </p>
-                <p class="rating">
-                  <%= elem.rating %>
-                </p>
-            </div>
-              
-              
-            </div>
-            <div class="row">
-              <div class="col">
-                <h2>Rewiew</h2>
-                <p><%= elem.review %></p>
+                <div class="col align-content-center text-center">
+                  <a class="buttn mouse" href="/books/editBook/<%= elem.book_id %>">Editar</a>
+                </div>
+                 <div class="col align-content-center">
+                  <a class="buttn mouse red" href="/books/delete/<%= elem.book_id %>/<%= elem.user_id %>">Borrar</a>
+                </div>
+                </div>
+                <div class="container-xxl ">
+                  <div class="row review">
+                    <div class="col">
+                      <h2>Rewiew</h2>
+                      <p><%= elem.review %></p>
+                    </div>
+                </div>
+                </div>
               </div>
-              
+      
+              <%  }) %>
             </div>
-                    
-            <%  }) %>
-          </div>
+
+            <% } else { %>
+              
+              <div class="not-found">
+                <h3>No se encontraron libros</h3>
+                <img src="/images/assets/not-found.jpg" alt="">
+              </div>
+            
+            <% } %>
+            
+              <dialog id="modal"><button id="close-modal" type="button"></button>
+                <%- include('modules/formNewReview') %>
+              </dialog>
+          
         </div>
-      </div>
-    </main>
-   <%- include('modules/scripts') %>
+      </main>
+         <%- include('modules/scripts') %>
+    </div>
   </body>
 </html>
