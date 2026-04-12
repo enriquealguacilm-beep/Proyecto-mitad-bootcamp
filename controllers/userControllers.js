@@ -5,13 +5,12 @@ const getStars = require('../utils/starrating');
 class UserControllers {
   
   showRegister = (req, res) => {
-    res.render('formRegister', {formValues: req.body});
+    res.render('formRegister', {formValues: req.body, formEnv: false});
 
   }
 
   register = (req, res) => {
     const { name, last_name, email, password, preferences } = req.body;
-
     if(!name || !last_name || !email || !password){
 
       res.render('FormRegister', {message: "* Debes cumplimentar todos los campos", formValues: req.body});
@@ -38,7 +37,7 @@ class UserControllers {
             else {
               
               
-              res.send("ok");                               // falta la vista
+              res.render('formRegister', {formEnv: true});                               // falta la vista
             }
           })
 
@@ -64,7 +63,7 @@ class UserControllers {
           if (err2){
             throw err2;
           }
-          else {console.log("asfgbbassssssssssssssssssssss",resultBooks);
+          else {
             resultBooks.forEach((elem) =>{
               elem.rating = getStars(elem.rating);
             })

@@ -41,6 +41,14 @@
   const modal = document.getElementById('modal');
   const openBtn = document.getElementById('open-modal');
   const closeBtn = document.getElementById('close-modal');
+  const openModal =  <%= typeof openModal != 'undefined' && openModal ?'true' : 'false'  %>;
+
+  if(openModal){
+    modal.showModal();
+  }
+
+
+
 
   openBtn.addEventListener('click', () => {
     modal.showModal();

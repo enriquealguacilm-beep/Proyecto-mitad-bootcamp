@@ -4,20 +4,14 @@
   class=""
   enctype="multipart/form-data"
 >
-  <h2 class="text-center">Añadir nuevo libro</h2>
-
   <div class="mb-3">
     <label for="imgAdded" class="form-label"
-      ><img
-        style="width: 200px"
-        id="addImg"
-        src="/images/assets/add-book.jpg"
-        alt=""
+      ><img id="addImg" src="/images/assets/add-book.jpg" alt=""
     /></label>
     <input type="file" class="form-control" id="imgAdded" name="img" hidden />
   </div>
 
-  <div class="mb-3">
+  <div class="mb-">
     <label for="inputTitle" class="form-label">Título del libro</label>
     <input
       type="text"
@@ -89,7 +83,7 @@
     >
   </div>
 
-  <div class="mb-3">
+  <div class="mb-2">
     <label for="publisher" class="form-label">Editorial</label>
     <input
       type="text"
@@ -102,7 +96,7 @@
   </div>
 
   <div class="mb-3">
-    <label for="rating" class="form-label">rating</label>
+    <label for="rating" class="form-label"></label>
     <div class="starrating">
       <input type="radio" id="star5" name="rating" value="5" />
       <label for="star5" title="5 estrellas">★</label>
@@ -121,10 +115,10 @@
     <%= typeof message != 'undefined' ? message : null %>
   </p>
   <div class="d-flex gap-2 mb-2">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="buttn mouse">Añadir</button>
     <button
       type="button"
-      class="btn btn-primary"
+      class="buttn mouse"
       onclick="window.location.href = '/users/profile/<%= user.user_id %>'"
     >
       Cancelar

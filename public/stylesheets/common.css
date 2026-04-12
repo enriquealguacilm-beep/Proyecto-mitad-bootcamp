@@ -9,6 +9,33 @@ a {
   display: inline-block;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--cl-main);
+}
+
+.web-navbar {
+  background-color: var(--cl-secondary);
+
+  .nvbar {
+    block-size: 4rem;
+    margin-inline-end: 1rem;
+
+    button {
+      margin-block-end: 0.5rem;
+    }
+  }
+
+  .buttn {
+    background-color: var(--cl-bg);
+    color: var(--cl-secondary);
+    padding: 0.5rem 1rem;
+  }
+}
+
 .rating {
   font-size: 30px;
   color: gold;
@@ -40,6 +67,7 @@ body {
   inline-size: fit-content;
   block-size: fit-content;
   border-radius: 15px;
+  border: none;
 }
 
 .user-card {
@@ -51,6 +79,7 @@ body {
 
   img {
     inline-size: 12.5rem;
+    block-size: 12.5rem;
     border-radius: 50%;
   }
 
@@ -69,7 +98,14 @@ body {
   padding-block: 1rem;
 
   img {
-    inline-size: 9.375rem;
+    border-radius: 25px;
+    inline-size: 11rem;
+    object-fit: cover;
+  }
+
+  .buttn {
+    padding: 1rem;
+    transform: scale(0.7);
   }
 }
 
@@ -84,5 +120,80 @@ body {
     transform: scale(1.05);
     box-shadow: 2px 2px 2px 2px rgba(18, 17, 17, 0.432);
     transition-duration: 0.2s;
+  }
+}
+
+dialog {
+  outline: none;
+  inline-size: min(800px, 70%);
+  border-radius: 20px;
+  border: 5px solid var(--cl-main);
+  opacity: 0;
+  transform: scaleY(0);
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out,
+    display 0.2s ease-out allow-discrete;
+
+  &[open] {
+    opacity: 1;
+    transform: scaleY(1);
+
+    @starting-style {
+      opacity: 0;
+      transform: scaleY(0);
+    }
+  }
+
+  &::backdrop {
+    background: rgb(0 0 0 / 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  img {
+    inline-size: 100px;
+  }
+
+  #close-modal {
+    display: none;
+  }
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border: var(--cl-main);
+  box-shadow: 0 0 0 0.25rem rgb(98, 28, 39, 0.58);
+}
+
+.form-check-input:checked {
+  background-color: var(--cl-secondary);
+  border-color: var(--cl-secondary);
+}
+
+.starrating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+
+  input {
+    display: none;
+
+    &:checked ~ label {
+      color: gold;
+    }
+  }
+
+  label {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover,
+    &:hover ~ label {
+      color: gold;
+    }
   }
 }

@@ -1,0 +1,23 @@
+.page-view {
+  background-color: var(--cl-light);
+  border: 2px solid var(--cl-main);
+  border-radius: 20px;
+
+  .data {
+    padding-block: 3rem;
+    padding-inline-end: 5rem;
+  }
+
+  .img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.confirm {
+  padding: 10rem;
+  h2 {
+    padding-block: 3rem;
+  }
+}

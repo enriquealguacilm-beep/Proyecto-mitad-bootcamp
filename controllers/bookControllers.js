@@ -1,11 +1,12 @@
 const connection = require('../config/db');
 const isNumber = require('../utils/numbersUtils');
+const getStars = require('../utils/starrating');
 
 
 
 class BookControllers{
   
-  showNewReview = (req, res) => {
+  showNewReview = (req, res) => {     //este no sirve
     const {user_id} = req.params;
 
     res.render('newReview', {user_id, formValues: req.body} );
@@ -14,12 +15,52 @@ class BookControllers{
   newReview = (req, res) => {
     const { user_id } = req.params;
     const {title, genre, author_name, year_written, review, publisher,rating } = req.body;
+    let sqlErr = 'SELECT * FROM user WHERE user_id = ? AND user_is_deleted = 0';
+    let sqlBooks = 'SELECT * FROM book WHERE user_id = ? AND book_is_deleted = 0 ORDER BY book_id desc';
     
     if (!title || !genre || !author_name || !year_written || !review || !publisher || !rating){
-      res.render('newReview', {user_id, message: "Debes rellenar todos los campos",  formValues: req.body});
+      connection.query(sqlErr, [user_id], (errErr, resultErr) => {
+        if (errErr){
+          throw errErr;
+        }
+        else {
+          connection.query(sqlBooks, [user_id], (err2, resultBooks) => {
+            if (err2){
+              throw err2;
+            }
+            else {
+              resultBooks.forEach((elem) =>{
+                elem.rating = getStars(elem.rating);
+              })
+                res.render('profile', {user_id, user: resultErr[0], resultBooks ,message: "Debes rellenar todos los campos",  formValues: req.body, openModal: true});
+            }
+          })
+        }
+      })
+      
     }
     else if (!isNumber(year_written) || year_written.trim().length > 4){
-      res.render('newReview', {user_id, messageYear: "El año introducido no es válido", formValues: req.body});
+      connection.query(sqlErr, [user_id], (errErr, resultErr) => {
+        if (errErr){
+          throw errErr;
+        }
+        else {
+         
+          
+          connection.query(sqlBooks, [user_id], (err2, resultBooks) => {
+            if (err2){
+              throw err2;
+            }
+            else {
+              resultBooks.forEach((elem) =>{
+                elem.rating = getStars(elem.rating);
+              })
+                res.render('profile', {user_id, user: resultErr[0], resultBooks,messageYear: "El año introducido no es válido", formValues: req.body, openModal: true});
+            }
+          })
+
+        }
+      })
     }
     else {
       let release = Number(year_written);
@@ -27,7 +68,7 @@ class BookControllers{
       let values = [title, genre, author_name, release, review, publisher, rating, user_id];
 
       if (req.file) {
-        sql = 'INSERT INTO book (title, genre, author_name, year_written, review, publisher, rating, picture, user_id) VALUES (?,?,?,?,?,?,?,?)';
+        sql = 'INSERT INTO book (title, genre, author_name, year_written, review, publisher, rating, picture, user_id) VALUES (?,?,?,?,?,?,?,?,?)';
         values = [title, genre, author_name, release, review, publisher, rating, req.file.filename, user_id];
 
 
@@ -43,9 +84,6 @@ class BookControllers{
       })
 
     }
-
-    
-    
   }
 
   showEditBook = (req,res) => {

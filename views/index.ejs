@@ -37,7 +37,7 @@
            <% reviews.forEach((rev) =>{ %>
             <div class="row review-card mouse" onclick="window.location.href='/users/profile/<%= rev.user_id %>'" >
               <img src="/images/users/<%= rev.avatar?rev.avatar:'user.jpg'%> "
-              class="col" alt="" />
+              class="col img" alt="" />
               <div class="col">
                 <h5 class="card-title"> <%= rev.name %></h5>
                 <p class="">
@@ -49,7 +49,7 @@
                 <p class=" rating">
                   <%= rev.rating %>
                 </p>
-                <a  class="btn btn-primary">Ir al perfil</a>
+                <a  class="buttn">Ir al perfil</a>
               </div>
             </div>
                  <% }) %>
