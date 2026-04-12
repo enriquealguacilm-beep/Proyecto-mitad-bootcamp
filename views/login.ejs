@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+    <%- include('modules/links') %>
+    <link rel="stylesheet" href="/stylesheets/editBook.css" />
+    <link rel="stylesheet" href="/stylesheets/login.css" />
+  </head>
+  <body>
+    <div class="index">
+      <header>
+        <nav class="web-navbar">
+          <div class="row align-items-center nvbar">
+            <div class="col">
+              <button
+                class="buttn mouse mx-2"
+                onclick="window.location.href = '/'"
+              >
+                Inicio
+              </button>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main>
+        <div class="container-fluid p-5">
+          <h1 class="text-center">Login</h1>
+
+          <div class="form-login">
+            <form
+              action="/users/login"
+              method="post"
+              class="login-view text-center"
+            >
+              <div class="login">
+                <div class="email mb-3">
+                  <label for="inputEmail" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="inputEmail"
+                    aria-describedby="emailHelp"
+                    name="email"
+                  />
+                </div>
+                <div class="password mb-3">
+                  <label for="inputPassword" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="inputPassword"
+                    name="password"
+                  />
+                </div>
+                <p class="text-danger">
+                  <%= typeof message != 'undefined' ? message: null %>
+                </p>
+                <div class="d-flex gap-2 mb-2 justify-content-center">
+                  <button type="submit" class="buttn mouse">Entrar</button>
+                  <button
+                    type="button"
+                    class="buttn mouse"
+                    onclick="window.location.href = '/'"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+      <%- include('modules/scripts') %>
+    </div>
+  </body>
+</html>

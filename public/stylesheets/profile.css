@@ -12,6 +12,14 @@
   h3 {
     margin-inline-start: 2rem;
   }
+  .buttn {
+    margin-block-start: 1rem;
+    margin-inline-end: 1rem;
+  }
+}
+
+.red {
+  background-color: #a70e0e;
 }
 
 .line {
@@ -29,10 +37,6 @@
 
   .review {
     padding: 2rem;
-  }
-
-  .red {
-    background-color: #a70e0e;
   }
 }
 .not-found {

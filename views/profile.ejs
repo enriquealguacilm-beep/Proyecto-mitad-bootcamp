@@ -20,13 +20,23 @@
             <button id="open-modal" type="button" class="buttn mouse">Añadir libro</button>
             
           </div>
+          <% if (login == false) { %>
+          <button class="buttn mouse mx-2" onclick="window.location.href='/users/login'">Log in</button>
           <button class="buttn mouse mx-2" onclick="window.location.href='/back'">Atrás</button>
-          
+         <% } else  if (isOwner == true){ %>
+           <button class="buttn mouse mx-2" onclick="window.location.href='/users/logout'">Log out</button>
+           <button class="buttn mouse mx-2" onclick="window.location.href='/back'">Atrás</button>
+        <% } else { %>
+          <button class="buttn mouse mx-2" onclick="window.location.href='/users/profile/<%= getLoginId %>'">Mi perfil</button>
+          <button class="buttn mouse mx-2" onclick="window.location.href='/back'">Atrás</button>
+         <% } %>
           </div>
         </nav>
       </header>
       <main>
         
+
+       
         <div class="container-xxl">
           <div class="row profile">
             <div class="col-12 col-xl-4 text-center ">
@@ -38,8 +48,15 @@
             </div>
             <div class="col align-content-center">
               <h1><%= `${user.name} ${user.last_name}` %></h1>
-              <h3><span class="fw-bold">E-mail:</span> <%= user.email %></h3>
-              <h3><span class="fw-bold">Preferencias:</span> <%= user.preferences %></h3>
+              <h3><span class="fw-bold">E-mail:</span > <span class="text-black"><%= user.email %></span></h3>
+              <h3><span class="fw-bold">Preferencias:</span> <span class="text-black"><%= user.preferences %></span></h3>
+
+              <% if (isOwner == false) { %>
+          
+         <% } else { %>
+           <button class="buttn mouse " onclick="window.location.href='/users/logout'">Editar</button>
+           <button class="buttn mouse red " onclick="window.location.href='/users/deleteUser/<%= user.user_id %>'">Eliminar usuario</button>
+        <% } %>
               
             </div>
           </div>
@@ -109,7 +126,7 @@
               <dialog closedby="any" id="modal"  ><button id="close-modal" type="button"></button>
                 <%- include('modules/formNewReview') %>
               </dialog>
-          
+     
         </div>
       </main>
          <%- include('modules/scripts') %>

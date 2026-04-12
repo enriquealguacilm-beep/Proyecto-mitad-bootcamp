@@ -1,5 +1,6 @@
 const connection = require('../config/db');
 const getStars = require('../utils/starrating');
+let login = require('./userControllers');
 
 class IndexController {
 
@@ -26,7 +27,7 @@ class IndexController {
             resultReviews.forEach((elem) =>{
               elem.rating = getStars(elem.rating);
             })
-            res.render('index', { users: resultUsers, reviews: resultReviews});
+            res.render('index', { users: resultUsers, reviews: resultReviews, login});
           }
         })
        

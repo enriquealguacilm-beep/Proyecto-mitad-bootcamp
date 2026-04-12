@@ -11,6 +11,11 @@
   background-size: cover;
   background-position: center;
 
+  .nav-button {
+    justify-content: end;
+    padding: 0.5rem 1.4rem;
+  }
+
   .welcome {
     block-size: 100%;
 

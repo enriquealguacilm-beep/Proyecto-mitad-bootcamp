@@ -180,7 +180,7 @@
                           value="novela policíaca"
                           id="novela_policíaca"
                         />
-                        <label class="form-check-label" for="novela_policíaca"
+                        <label class="form-check-label" for="novela_policiaca"
                           >Novela policíaca</label
                         >
                       </div>
@@ -188,11 +188,11 @@
                         <input
                           class="form-check-input preference"
                           type="checkbox"
-                          value="Literatura LGBT+"
-                          id="literatura_lgbt"
+                          value="Novela histórica"
+                          id="novela_historica"
                         />
-                        <label class="form-check-label" for="literatura_lgbt"
-                          >Literatura LGBT+</label
+                        <label class="form-check-label" for="novela_historica"
+                          >Novela histórica</label
                         >
                       </div>
                     </div>
@@ -207,7 +207,7 @@
                 <p class="text-danger">
                   <%= typeof message != 'undefined' ? message: null %>
                 </p>
-                <div class="d-flex gap-2 mb-2">
+                <div class="d-flex gap-2 mt-5 align-items-center">
                   <button type="submit" class="buttn mouse">Registrarse</button>
                   <button
                     type="button"
@@ -216,6 +216,10 @@
                   >
                     Cancelar
                   </button>
+                  
+                    <h5 class="ms-5 ps-5">¿Ya eres miembro?</h5>
+                    <button type="button" class="buttn mouse" onclick="window.location.href='/users/login'">Inicia sesión</button>
+                  
                 </div>
               </div>
             </div>

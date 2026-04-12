@@ -1,9 +1,14 @@
 const connection = require('../config/db');
 const bcrypt = require('bcrypt');
 const getStars = require('../utils/starrating');
+let login = false;
+let getLoginId = null;
+
+
+
 
 class UserControllers {
-  
+   
   showRegister = (req, res) => {
     res.render('formRegister', {formValues: req.body, formEnv: false});
 
@@ -37,7 +42,7 @@ class UserControllers {
             else {
               
               
-              res.render('formRegister', {formEnv: true});                               // falta la vista
+              res.render('formRegister', {formEnv: true});
             }
           })
 
@@ -67,7 +72,10 @@ class UserControllers {
             resultBooks.forEach((elem) =>{
               elem.rating = getStars(elem.rating);
             })
-            res.render('profile', { user: result[0], resultBooks,  formValues: req.body});
+            let isOwner = login && result[0].user_id === getLoginId;
+            
+            
+            res.render('profile', { user: result[0], resultBooks,  formValues: req.body, login,isOwner,getLoginId} );
             
             
           }
@@ -76,6 +84,83 @@ class UserControllers {
     })
 
   }
+
+
+  showLogin = (req, res) => {
+    res.render('login', {login});
+  }
+
+
+  login = (req, res) => {
+    const email = req.body.email.trim();
+    const password = req.body.password.trim();
+
+    if (!email || !password) {
+      res.render('login', {message: "* Debes cumplimentar todos los campos"});
+    }
+    else {
+      let sql = 'SELECT * FROM user WHERE email = ? AND user_is_deleted = 0';
+
+      connection.query(sql, [email], (err, result) => {
+        if (err){
+          throw err;
+        }
+        else {
+          if(!result.length){
+            res.render('login', {message: "* Credenciales incorrectas"});
+          }
+          else {
+            let hashedPass = result[0].password;
+            bcrypt.compare(password, hashedPass, (errCompare, resultCompare) => {
+              if (errCompare){
+                throw errCompare;
+              }
+              else {
+                if (resultCompare === true) {
+                  login = true;
+                  getLoginId = result[0].user_id;
+                  res.redirect(`/users/profile/${result[0].user_id}`)
+                }
+                else {
+                  
+                  res.render('login', {message: "*Credenciales incorrectas"});
+                }
+              }
+            })
+          }
+        }
+      })
+    }
+  }
+  
+  logOut = (req, res) => {
+    login = false;
+    getLoginId = null;
+    res.redirect('/');
+  }
+
+  deleteUser = (req, res) => {
+    const {user_id} = req.params;
+    let sqlU = 'UPDATE user SET user_is_deleted = 1 WHERE user_id = ? ';
+    let sqlB = 'UPDATE book SET book_is_deleted = 1 WHERE user_id = ?' ;
+
+    connection.query(sqlU, [user_id], (errU, resultU) => {
+      if (errU){
+        throw errU;
+      }
+      else {
+        connection.query(sqlB, [user_id], (errB, resultB) => {
+          if (errB) {
+            throw errB;
+          }
+          else {
+            res.redirect('/back');
+          }
+        })
+      }
+    })
+  }
+
 
 
 }
