@@ -22,3 +22,6 @@
     }
   }
 }
+.container-fluid {
+  block-size: 85vh;
+}

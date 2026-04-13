@@ -8,230 +8,232 @@
     <link rel="stylesheet" href="/stylesheets/editBook.css" />
   </head>
   <body>
-    <div class="index">
-      <header>
-        <nav class="web-navbar">
-          <div class="row align-items-center navbar">
-            <div class="col">
+    <div class="index"> <header>
+          <nav class="web-navbar">
+            <div class="row align-items-center navbar">
+              <div class="col">
+                <button
+                  class="buttn mouse mx-2"
+                  onclick="window.location.href = '/'"
+                >
+                  Inicio
+                </button>
+              </div>
               <button
                 class="buttn mouse mx-2"
-                onclick="window.location.href = '/'"
+                onclick="window.location.href = '/back'"
               >
-                Inicio
+                Atrás
               </button>
             </div>
-            <button
-              class="buttn mouse mx-2"
-              onclick="window.location.href = '/back'"
+          </nav>
+        </header>
+      <div class="index-small">
+       
+        <main>
+          <div class="container-fluid p-xl-5">
+            <h1 class="text-center">Editar usuario</h1>
+            <form
+              action="/users/editUser/<%= user.user_id %>"
+              method="post"
+              class="page-view"
+              enctype="multipart/form-data"
             >
-              Atrás
-            </button>
-          </div>
-        </nav>
-      </header>
-      <main>
-        <div class="container-fluid p-xl-5">
-          <h1 class="text-center">Editar usuario</h1>
-          <form
-            action="/users/editUser/<%= user.user_id %>"
-            method="post"
-            class="page-view"
-            enctype="multipart/form-data"
-          >
-            <div class="row">
-              <div class="col-12 col-xl-4 img pt-3">
-                <div class="mb-3">
-                  <img
-                    class="img-profile"
-                    id="addImg"
-                    src="/images/users/<%= user.avatar?user.avatar:'user.jpg' %>"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div class="col-12 col-xl-8 data">
-                <div class="mb-3">
-                  <label for="inputName" class="form-label">Nombre</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inputName"
-                    aria-describedby="nameHelp"
-                    name="name"
-                    value="<%= user.name %>"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="inputLast_name" class="form-label"
-                    >Apellidos</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inputLast_name"
-                    aria-describedby="lastnameHelp"
-                    name="last_name"
-                    value="<%= user.last_name %>"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="inputEmail" class="form-label">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="inputEmail"
-                    aria-describedby="emailHelp"
-                    name="email"
-                    value="<%= user.email %>"
-                  />
-                </div>
-                
-                <div class="mb-3">
-                  <label class="form-label">Preferencias (opcional)</label>
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="form-check">
-                        <input
-                          class="form-check-input preference"
-                          type="checkbox"
-                          value="Drama"
-                          id="drama"
-                          <%= user.preferences.includes("Drama")? 'checked': null %>
-                        />
-                        <label class="form-check-label" for="drama"
-                          >Drama</label
-                        >
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input preference"
-                          type="checkbox"
-                          value="Fantasía"
-                          id="fantasia"
-                          <%= user.preferences.includes("Fantasía")? 'checked': null %>
-                        />
-                        <label class="form-check-label" for="fantasia"
-                          >Fantasía</label
-                        >
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input preference"
-                          type="checkbox"
-                          value="Poesía"
-                          id="poesia"
-                          <%= user.preferences.includes("Poesía") ? 'checked': null %>
-                        />
-                        <label class="form-check-label" for="poesia"
-                          >Poesía</label
-                        >
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input preference"
-                          type="checkbox"
-                          value="Terror"
-                          id="terror"
-                          <%= user.preferences.includes("Terror") ? 'checked': null %>
-                        />
-                        <label class="form-check-label" for="terror"
-                          >Terror</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-8">
-                      <div class="form-check">
-                        <input
-                          class="form-check-input preference"
-                          type="checkbox"
-                          value="Juvenil"
-                          id="juvenil"
-                          <%= user.preferences.includes("Juvenil") ? 'checked': null %>
-                        />
-                        <label class="form-check-label" for="juvenil"
-                          >Juvenil</label
-                        >
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input preference"
-                          type="checkbox"
-                          value="Ciencia ficción"
-                          id="ciencia_ficcion"
-                          <%= user.preferences.includes("Ciencia ficción") ? 'checked': null %>
-                        />
-                        <label class="form-check-label" for="ciencia_ficcion"
-                          >Ciencia ficción</label
-                        >
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input preference"
-                          type="checkbox"
-                          value="Novela policíaca"
-                          id="novela_policíaca"
-                          <%= user.preferences.includes("Novela policíaca") ? 'checked': null %>
-                        />
-                        <label class="form-check-label" for="novela_policiaca"
-                          >Novela policíaca</label
-                        >
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input preference"
-                          type="checkbox"
-                          value="Novela histórica"
-                          id="novela_historica"
-                          <%= user.preferences.includes("Novela histórica") ? 'checked': null %>
-                        />
-                        <label class="form-check-label" for="novela_historica"
-                          >Novela histórica</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <input
-                    hidden
-                    name="preferences"
-                    id="inputPreferences"
-                    value=""
-                  />
-                </div>
-                <p class="text-danger">
-                  <%= typeof message != 'undefined' ? message: null %>
-                </p>
-                <div class="row gap-2 mt-5 align-items-center">
-                  <div class="col-12 col-xl-2"><button type="submit" class="buttn mouse">Actualizar</button></div>
-                  <div class="col-12 col-xl-2">
-                    <button
-                      type="button"
-                      class="buttn mouse"
-                      onclick="
-                        window.location.href =
-                          '/users/profile/<%= user.user_id %>'
-                      "
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                  <div class="col-12 col-xl-7 text-xl-end">
-                    <label for="imgAdded" class="form-label buttn mouse mt-5 mt-xl-0">
-                      Editar imagen</label
-                    ><input
-                      type="file"
-                      class="form-control"
-                      id="imgAdded"
-                      name="img"
-                      hidden
+              <div class="row">
+                <div class="col-12 col-xl-4 img pt-3">
+                  <div class="mb-3">
+                    <img
+                      class="img-profile"
+                      id="addImg"
+                      src="/images/users/<%= user.avatar?user.avatar:'user.jpg' %>"
+                      alt=""
                     />
                   </div>
                 </div>
+                <div class="col-12 col-xl-8 data">
+                  <div class="mb-3">
+                    <label for="inputName" class="form-label">Nombre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputName"
+                      aria-describedby="nameHelp"
+                      name="name"
+                      value="<%= user.name %>"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="inputLast_name" class="form-label"
+                      >Apellidos</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputLast_name"
+                      aria-describedby="lastnameHelp"
+                      name="last_name"
+                      value="<%= user.last_name %>"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="inputEmail"
+                      aria-describedby="emailHelp"
+                      name="email"
+                      value="<%= user.email %>"
+                    />
+                  </div>
+        
+                  <div class="mb-3">
+                    <label class="form-label">Preferencias (opcional)</label>
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input preference"
+                            type="checkbox"
+                            value="Drama"
+                            id="drama"
+                            <%= user.preferences.includes("Drama")? 'checked': null %>
+                          />
+                          <label class="form-check-label" for="drama"
+                            >Drama</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input preference"
+                            type="checkbox"
+                            value="Fantasía"
+                            id="fantasia"
+                            <%= user.preferences.includes("Fantasía")? 'checked': null %>
+                          />
+                          <label class="form-check-label" for="fantasia"
+                            >Fantasía</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input preference"
+                            type="checkbox"
+                            value="Poesía"
+                            id="poesia"
+                            <%= user.preferences.includes("Poesía") ? 'checked': null %>
+                          />
+                          <label class="form-check-label" for="poesia"
+                            >Poesía</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input preference"
+                            type="checkbox"
+                            value="Terror"
+                            id="terror"
+                            <%= user.preferences.includes("Terror") ? 'checked': null %>
+                          />
+                          <label class="form-check-label" for="terror"
+                            >Terror</label
+                          >
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input preference"
+                            type="checkbox"
+                            value="Juvenil"
+                            id="juvenil"
+                            <%= user.preferences.includes("Juvenil") ? 'checked': null %>
+                          />
+                          <label class="form-check-label" for="juvenil"
+                            >Juvenil</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input preference"
+                            type="checkbox"
+                            value="Ciencia ficción"
+                            id="ciencia_ficcion"
+                            <%= user.preferences.includes("Ciencia ficción") ? 'checked': null %>
+                          />
+                          <label class="form-check-label" for="ciencia_ficcion"
+                            >Ciencia ficción</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input preference"
+                            type="checkbox"
+                            value="Novela policíaca"
+                            id="novela_policíaca"
+                            <%= user.preferences.includes("Novela policíaca") ? 'checked': null %>
+                          />
+                          <label class="form-check-label" for="novela_policiaca"
+                            >Novela policíaca</label
+                          >
+                        </div>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input preference"
+                            type="checkbox"
+                            value="Novela histórica"
+                            id="novela_historica"
+                            <%= user.preferences.includes("Novela histórica") ? 'checked': null %>
+                          />
+                          <label class="form-check-label" for="novela_historica"
+                            >Novela histórica</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <input
+                      hidden
+                      name="preferences"
+                      id="inputPreferences"
+                      value=""
+                    />
+                  </div>
+                  <p class="text-danger">
+                    <%= typeof message != 'undefined' ? message: null %>
+                  </p>
+                  <div class="row gap-2 mt-5 align-items-center">
+                    <div class="col-12 col-xl-2"><button type="submit" class="buttn mouse">Actualizar</button></div>
+                    <div class="col-12 col-xl-2">
+                      <button
+                        type="button"
+                        class="buttn mouse"
+                        onclick="
+                          window.location.href =
+                            '/users/profile/<%= user.user_id %>'
+                        "
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                    <div class="col-12 col-xl-7 text-xl-end">
+                      <label for="imgAdded" class="form-label buttn mouse mt-5 mt-xl-0">
+                        Editar imagen</label
+                      ><input
+                        type="file"
+                        class="form-control"
+                        id="imgAdded"
+                        name="img"
+                        hidden
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
-      </main>
-      <%- include('modules/scripts') %>
+            </form>
+          </div>
+        </main>
+        <%- include('modules/scripts') %>
+      </div>
     </div>
   </body>
 </html>

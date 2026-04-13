@@ -9,55 +9,58 @@
   </head>
   <body>
     <div class="index">
-      <header><%- include('modules/navbar') %></header>
-      <main>
-        <section class="section-community container-fluid">
-          <h2 id="community">Nuestra comunidad</h2>
-           <div class="row justify-content-center gap-5 py-5 px-3">
-           <% users.forEach((elem) =>{ %>
-            <div class="col-2 user-card mouse"  onclick="window.location.href='/users/profile/<%= elem.user_id %>'">
-              <img src="/images/users/<%= elem.avatar?elem.avatar:'user.jpg'%> "
-              class="card-img-top" alt="" />
-              <div class="user-card-body">
-                <h5 class="user-card-title"> <%= elem.name %> <%= elem.last_name %></h5>
-                <p>
-                  <%= elem.preferences %>
-                </p>
-                <p>
-                  <%= elem.email %>
-                </p>
+      <div class="index-small">
+        <header><%- include('modules/navbar') %></header>
+        <main>
+          <section class="section-community container-fluid">
+            <h2 id="community">Nuestra comunidad</h2>
+             <div class="row justify-content-center gap-5 py-5 px-3">
+             <% users.forEach((elem) =>{ %>
+              <div class="col-2 user-card mouse"  onclick="window.location.href='/users/profile/<%= elem.user_id %>'">
+                <img src="/images/users/<%= elem.avatar?elem.avatar:'user.jpg'%> "
+                class="card-img-top" alt="" />
+                <div class="user-card-body">
+                  <h5 class="user-card-title"> <%= elem.name %> <%= elem.last_name %></h5>
+                  <p>
+                    <%= elem.preferences %>
+                  </p>
+                  <p>
+                    <%= elem.email %>
+                  </p>
+                </div>
               </div>
+                   <% }) %>
             </div>
-                 <% }) %>
-          </div>
-        </section>
-        <section class="section-reviews container-fluid">
-          <h2>Actividad reciente</h2>
-           <div class="d-flex flex-wrap justify-content-center gap-2">
-           <% reviews.forEach((rev) =>{ %>
-            <div class="row review-card mouse" onclick="window.location.href='/users/profile/<%= rev.user_id %>'" >
-              <div class="col-xl-8">
-                <img src="/images/users/<%= rev.avatar?rev.avatar:'user.jpg'%> "
-                class=" img" alt="" />
+          </section>
+          <section class="section-reviews container-fluid">
+            <h2>Actividad reciente</h2>
+             <div class="d-flex flex-wrap justify-content-center gap-2">
+             <% reviews.forEach((rev) =>{ %>
+              <div class="row review-card mouse" onclick="window.location.href='/users/profile/<%= rev.user_id %>'" >
+                <div class="col-xl-8">
+                  <img src="/images/users/<%= rev.avatar?rev.avatar:'user.jpg'%> "
+                  class=" img" alt="" />
+                </div>
+                <div class="col-xl-4">
+                  <h5 class="card-title"> <%= rev.name %></h5>
+                  <p class="card-title">
+                    <%= rev.last_name %>
+                  </p>
+                  <p class="">
+                    "<%= rev.title %>"
+                  </p>
+                  <p class=" rating">
+                    <%= rev.rating %>
+                  </p>
+                  <a  class="buttn">Ir al perfil</a>
+                </div>
               </div>
-              <div class="col-xl-4">
-                <h5 class="card-title"> <%= rev.name %></h5>
-                <p class="">
-                  <%= rev.last_name %>
-                </p>
-                <p class="">
-                  "<%= rev.title %>"
-                </p>
-                <p class=" rating">
-                  <%= rev.rating %>
-                </p>
-                <a  class="buttn">Ir al perfil</a>
-              </div>
-            </div>
-                 <% }) %>
-        </section>
-      </main>
-      <%- include('modules/scripts') %>
+                   <% }) %>
+             </div>
+          </section>
+        </main>
+        <%- include('modules/scripts') %>
+      </div>
     </div>
   </body>
 </html>

@@ -24,61 +24,64 @@
           </div>
         </nav>
       </header>
-      <main>
-        <div class="container-fluid p-xl-5">
-          <h1 class="text-center">Login</h1>
-
-          <div class="form-login">
-            <form
-              action="/users/login"
-              method="post"
-              class="login-view text-center"
-            >
-              <div class="login">
-                <div class="email mb-3">
-                  <label for="inputEmail" class="form-label">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="inputEmail"
-                    aria-describedby="emailHelp"
-                    name="email"
-                  />
-                </div>
-                <div class="password mb-3">
-                  <label for="inputPassword" class="form-label">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="inputPassword"
-                    name="password"
-                  />
-                </div>
-                <p class="text-danger">
-                  <%= typeof message != 'undefined' ? message: null %>
-                </p>
-                <div class="row">
-                  <div class="col-12 col-xl">
-                    <button type="submit" class="me-2 my-2 buttn mouse">
-                      Entrar
-                    </button>
+      <div class="index-small">
+        <main>
+          <div class="container-fluid p-xl-5">
+            <h1 class="text-center">Login</h1>
+            <div class="form-login">
+              <form
+                action="/users/login"
+                method="post"
+                class="login-view text-center"
+              >
+                <div class="login">
+                  <div class="email mb-3">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="inputEmail"
+                      aria-describedby="emailHelp"
+                      name="email"
+                    />
                   </div>
-                  <div class="col-12 col-xl">
-                    <button
-                      type="button"
-                      class="me-2 my-2 buttn mouse"
-                      onclick="window.location.href = '/'"
+                  <div class="password mb-3">
+                    <label for="inputPassword" class="form-label"
+                      >Password</label
                     >
-                      Cancelar
-                    </button>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="inputPassword"
+                      name="password"
+                    />
+                  </div>
+                  <p class="text-danger">
+                    <%= typeof message != 'undefined' ? message: null %>
+                  </p>
+                  <div class="row">
+                    <div class="col-12 col-xl">
+                      <button type="submit" class="me-2 my-2 buttn mouse">
+                        Entrar
+                      </button>
+                    </div>
+                    <div class="col-12 col-xl">
+                      <button
+                        type="button"
+                        class="me-2 my-2 buttn mouse"
+                        onclick="window.location.href = '/'"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-      </main>
-      <%- include('modules/scripts') %>
+        </main>
+        <%- include('modules/scripts') %>
+      </div>
     </div>
   </body>
 </html>

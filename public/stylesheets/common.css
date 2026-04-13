@@ -64,10 +64,10 @@ body {
   background-color: var(--cl-main);
 
   .index {
-    min-block-size: 95vh;
+    min-block-size: 90vh;
     margin: 1.5rem;
     border-radius: 25px;
-    background-color: var(--cl-bg);
+    background-color: var(--cl-secondary);
     border: 10px solid var(--cl-secondary);
   }
 
@@ -75,6 +75,12 @@ body {
     border-start-start-radius: 13px;
     border-start-end-radius: 13px;
   }
+}
+.index-small {
+  block-size: 100%;
+  background-color: var(--cl-bg);
+  border-top: 1px solid var(--cl-secondary);
+  border-radius: 25px;
 }
 .buttn {
   text-decoration: none;
