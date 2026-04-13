@@ -1,6 +1,3 @@
-h1 {
-  margin-block-end: 3rem;
-}
 .form-login {
   display: flex;
   justify-content: center;
@@ -11,9 +8,17 @@ h1 {
     border: 2px solid var(--cl-main);
     border-radius: 20px;
 
+    @media (width < 585px) {
+      inline-size: 290px;
+    }
+
     .login {
       padding-block: 3rem;
       padding-inline: 15rem;
+
+      @media (width < 585px) {
+        padding-inline: 1rem;
+      }
     }
   }
 }

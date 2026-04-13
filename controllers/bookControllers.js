@@ -1,16 +1,14 @@
 const connection = require('../config/db');
 const isNumber = require('../utils/numbersUtils');
 const getStars = require('../utils/starrating');
-
+const login = require('./userControllers');
+const isOwner = require('./userControllers');
+let getLoginId = require('./userControllers');
 
 
 class BookControllers{
   
-  showNewReview = (req, res) => {     //este no sirve
-    const {user_id} = req.params;
-
-    res.render('newReview', {user_id, formValues: req.body} );
-  }
+  
 
   newReview = (req, res) => {
     const { user_id } = req.params;
@@ -32,7 +30,8 @@ class BookControllers{
               resultBooks.forEach((elem) =>{
                 elem.rating = getStars(elem.rating);
               })
-                res.render('profile', {user_id, user: resultErr[0], resultBooks ,message: "Debes rellenar todos los campos",  formValues: req.body, openModal: true});
+                res.render('profile', {user_id, user: resultErr[0], resultBooks ,message: "Debes rellenar todos los campos", 
+                   formValues: req.body, openModal: true, login,isOwner,getLoginId});
             }
           })
         }
@@ -55,7 +54,8 @@ class BookControllers{
               resultBooks.forEach((elem) =>{
                 elem.rating = getStars(elem.rating);
               })
-                res.render('profile', {user_id, user: resultErr[0], resultBooks,messageYear: "El año introducido no es válido", formValues: req.body, openModal: true});
+                res.render('profile', {user_id, user: resultErr[0], resultBooks,messageYear: "El año introducido no es válido", 
+                  formValues: req.body, openModal: true,login,isOwner,getLoginId});
             }
           })
 
@@ -100,33 +100,43 @@ class BookControllers{
     })
   }
 
-
+  getOneBook = (res, book_id, message) => {
+    let sql = 'SELECT * FROM book WHERE book_id = ? AND book_is_deleted = 0';
+       connection.query(sql, [book_id], (err, result) => {
+      if (err){
+        throw err;
+      }
+      else {
+        res.render("editBook", {book: result[0], message});
+      }
+    })
+      
+      
+    
+  }
 
   editBook = (req,res) => {
     const { book_id, user_id } = req.params;
     const {title, author_name, year_written, review, publisher,rating } = req.body;
 
-    if (!rating){
-      res.render('editBook', {book_id, messageRating: "Debes actualizar la valoración"});
-      
-    }
-    else if (!isNumber(year_written) || year_written.trim().length > 4){
-      res.render('editBook', {book_id, messageYear: "El año introducido no es válido"});
-    }
+    
+    if (!isNumber(year_written) || year_written.trim().length > 4){
+      this.getOneBook(res,book_id,"El año introducido no es válido");
+    } 
     else {
       let release = Number(year_written);
       let sql = `
       UPDATE book 
       SET title = ?,  author_name = ?, year_written = ?, review = ?, publisher = ?,rating = ?
       WHERE book_id = ? AND book_is_deleted = 0`;
-      let values = [title, author_name, year_written, review, publisher, rating, book_id];
+      let values = [title, author_name, release, review, publisher, rating, book_id];
 
       if (req.file) {
         sql = `
           UPDATE book 
           SET title = ?, author_name = ?, year_written = ?, review = ?, publisher = ?,rating = ?, picture = ?
           WHERE book_id = ? AND book_is_deleted = 0`;
-          values = [title, author_name, year_written, review, publisher, rating, req.file.filename, book_id];
+          values = [title, author_name, release, review, publisher, rating, req.file.filename, book_id];
       }
 
       connection.query(sql, values, (err, result) => {

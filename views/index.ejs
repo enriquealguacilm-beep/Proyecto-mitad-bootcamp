@@ -36,15 +36,17 @@
            <div class="d-flex flex-wrap justify-content-center gap-2">
            <% reviews.forEach((rev) =>{ %>
             <div class="row review-card mouse" onclick="window.location.href='/users/profile/<%= rev.user_id %>'" >
-              <img src="/images/users/<%= rev.avatar?rev.avatar:'user.jpg'%> "
-              class="col img" alt="" />
-              <div class="col">
+              <div class="col-xl-8">
+                <img src="/images/users/<%= rev.avatar?rev.avatar:'user.jpg'%> "
+                class=" img" alt="" />
+              </div>
+              <div class="col-xl-4">
                 <h5 class="card-title"> <%= rev.name %></h5>
                 <p class="">
                   <%= rev.last_name %>
                 </p>
                 <p class="">
-                  <%= rev.title %>
+                  "<%= rev.title %>"
                 </p>
                 <p class=" rating">
                   <%= rev.rating %>

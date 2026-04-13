@@ -23,20 +23,39 @@
 }
 
 .line {
-  padding-inline: 2rem;
   border-bottom: 2px solid var(--cl-secondary);
+  @media (width < 585px) {
+    inline-size: 250px;
+  }
 }
 
 .book {
   background-color: var(--cl-light);
   border-radius: 20px;
   margin: 5rem;
+
+  @media (width < 585px) {
+    margin: 0.5rem;
+  }
+
   .data {
+    display: flex;
+    flex-direction: column;
     padding-block: 2rem;
+    padding-inline-end: 10rem;
+    align-items: center;
+
+    @media (width < 585px) {
+      padding-inline-end: 1rem;
+    }
   }
 
   .review {
     padding: 2rem;
+
+    @media (width < 585px) {
+      padding: 0;
+    }
   }
 }
 .not-found {
@@ -51,7 +70,7 @@
   }
 
   img {
-    inline-size: 20rem;
+    inline-size: clamp(220px, 90px + 21.667vw, 320px);
     opacity: 50%;
   }
 }

@@ -7,7 +7,7 @@
     
     <%- include('modules/links') %>
     <link rel="stylesheet" href="/stylesheets/profile.css">
-    <link rel="stylesheet" href="/stylesheets/newReview.css">
+    
      
   </head>
   <body>
@@ -15,21 +15,29 @@
       <header>
         <nav class="web-navbar">
           <div class="row align-items-center  nvbar">
-            <div class="col ">
-              <button class="buttn mouse mx-2" onclick="window.location.href='/'">Inicio</button>
-            <button id="open-modal" type="button" class="buttn mouse">Añadir libro</button>
+            <div class="col-12 col-xl-6 d-flex gap-2">
+              <button class="buttn mouse  mx-xl-2" onclick="window.location.href='/'">Inicio</button>
+            <% if (isOwner) { %>
+            <button id="open-modal" type="button" class="buttn mouse ">Añadir libro</button>
+            <% } %>
+              
             
           </div>
+
+          <div class="divider"></div>
+
+          <div class="col-12 col-xl-6 d-flex gap-2 justify-content-end">
           <% if (login == false) { %>
-          <button class="buttn mouse mx-2" onclick="window.location.href='/users/login'">Log in</button>
-          <button class="buttn mouse mx-2" onclick="window.location.href='/back'">Atrás</button>
+          <button class="buttn mouse " onclick="window.location.href='/users/login'">Log in</button>
+          <button class="buttn mouse me-2 mx-xl-2" onclick="window.location.href='/back'">Atrás</button>
          <% } else  if (isOwner == true){ %>
-           <button class="buttn mouse mx-2" onclick="window.location.href='/users/logout'">Log out</button>
-           <button class="buttn mouse mx-2" onclick="window.location.href='/back'">Atrás</button>
+           <button class="buttn mouse " onclick="window.location.href='/users/logout'">Log out</button>
+           <button class="buttn mouse me-2 mx-xl-2" onclick="window.location.href='/back'">Atrás</button>
         <% } else { %>
-          <button class="buttn mouse mx-2" onclick="window.location.href='/users/profile/<%= getLoginId %>'">Mi perfil</button>
-          <button class="buttn mouse mx-2" onclick="window.location.href='/back'">Atrás</button>
+          <button class="buttn mouse " onclick="window.location.href='/users/profile/<%= getLoginId %>'">Mi perfil</button>
+          <button class="buttn mouse me-2 mx-xl-2" onclick="window.location.href='/back'">Atrás</button>
          <% } %>
+          </div>
           </div>
         </nav>
       </header>
@@ -54,15 +62,15 @@
               <% if (isOwner == false) { %>
           
          <% } else { %>
-           <button class="buttn mouse " onclick="window.location.href='/users/logout'">Editar</button>
-           <button class="buttn mouse red " onclick="window.location.href='/users/deleteUser/<%= user.user_id %>'">Eliminar usuario</button>
+           <button class="buttn mouse ms-3 " onclick="window.location.href='/users/editUser/<%= user.user_id %>'">Editar</button>
+           <button class="buttn mouse ms-3  red " onclick="window.location.href='/users/deleteUser/<%= user.user_id %>'">Eliminar usuario</button>
         <% } %>
               
             </div>
           </div>
          </div>
          <div class="container-xxl line"></div>
-         <div class="container-fluid py-5">
+         <div class="container-xxl py-5">
 
           <% if(resultBooks.length > 0) {  %>
             <h2 id="books" class="text-center p-4">Libros</h2>
@@ -70,36 +78,44 @@
               <% resultBooks.forEach((elem) =>{ %>
       
               <div class="book">
+
+                <% if (isOwner) { %>
+
+                
+                <div class="col align-content-center text-center pt-3">
+                  <a class="buttn mouse m-3  " href="/books/editBook/<%= elem.book_id %>">Editar</a>
+                  <a class="buttn mouse red m-3 " href="/books/delete/<%= elem.book_id %>/<%= elem.user_id %>">Borrar</a>
+                </div>
+                 
+                <%  } %>
+
                 <div class="row p-2">
-                    <div class="col-12 col-xl-4 text-center align-content-center">
+                    <div class="col-12 col-xl-6 text-center align-content-center">
                       <img src="/images/books/<%= elem.picture?elem.picture:'book.jpg'%> "
                       class="" alt="" />
                     </div>
-                  <div class="col-12 col-xl-3  align-content-center data ">
-                    <h5 class=""> <%= elem.title %></h5>
-                    <p>
-                      <span class="fw-bold">Autor: </span><%= elem.author_name %>
-                    </p>
-                    <p>
-                      <span class="fw-bold">Género: </span><%= elem.genre %>
-                    </p>
-                    <p>
-                      <span class="fw-bold">Año de publicación: </span><%= elem.year_written %>
-                    </p>
-                    <p>
-                      <span class="fw-bold">Editorial: </span><%= elem.publisher %>
-                    </p>
-                    <p class="rating">
-                      <%= elem.rating %>
-                    </p>
+                  <div class="col-12 col-xl-6   data ">
+                    <div class="">
+                      <h5 class=""> <%= elem.title %></h5>
+                      <p>
+                        <span class="fw-bold">Autor: </span> <%= elem.author_name %>
+                      </p>
+                      <p>
+                        <span class="fw-bold">Género: </span> <%= elem.genre %>
+                      </p>
+                      <p>
+                        <span class="fw-bold">Año de publicación: </span> <%= elem.year_written %>
+                      </p>
+                      <p>
+                        <span class="fw-bold">Editorial: </span> <%= elem.publisher %>
+                      </p>
+                      <p class="rating">
+                        <%= elem.rating %>
+                      </p>
+                    </div>
                 
                 </div>
-                <div class="col align-content-center text-center">
-                  <a class="buttn mouse" href="/books/editBook/<%= elem.book_id %>">Editar</a>
-                </div>
-                 <div class="col align-content-center">
-                  <a class="buttn mouse red" href="/books/delete/<%= elem.book_id %>/<%= elem.user_id %>">Borrar</a>
-                </div>
+                
                 </div>
                 <div class="container-xxl ">
                   <div class="row review">

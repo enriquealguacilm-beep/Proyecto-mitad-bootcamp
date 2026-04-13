@@ -19,5 +19,9 @@ router.get('/logout', userControllers.logOut);
 
 router.get('/deleteUser/:user_id', userControllers.deleteUser);
 
+router.get('/editUser/:user_id', userControllers.showEditUser);
+
+router.post('/editUser/:user_id',uploadFile("users") ,userControllers.editUser)
+
 module.exports = router;
                                      

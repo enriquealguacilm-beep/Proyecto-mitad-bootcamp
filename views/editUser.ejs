@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
+    <title>Bookshare</title>
     <%- include('modules/links') %>
     <link rel="stylesheet" href="/stylesheets/editBook.css" />
   </head>
@@ -20,39 +20,32 @@
                 Inicio
               </button>
             </div>
+            <button
+              class="buttn mouse mx-2"
+              onclick="window.location.href = '/back'"
+            >
+              Atrás
+            </button>
           </div>
         </nav>
       </header>
       <main>
         <div class="container-fluid p-xl-5">
-          <h1 class="text-center">Formulario de registro</h1>
-
-          
-          <% if (formEnv === false ){  %> 
-
-          
+          <h1 class="text-center">Editar usuario</h1>
           <form
-            action="/users/register"
+            action="/users/editUser/<%= user.user_id %>"
             method="post"
             class="page-view"
             enctype="multipart/form-data"
           >
             <div class="row">
-              <div class="col-12 col-xl-4 img">
+              <div class="col-12 col-xl-4 img pt-3">
                 <div class="mb-3">
-                  <label for="imgAdded" class="form-label"
-                    ><img
-                      class="img-profile"
-                      id="addImg"
-                      src="/images/assets/add-user.png"
-                      alt=""
-                  /></label>
-                  <input
-                    type="file"
-                    class="form-control"
-                    id="imgAdded"
-                    name="img"
-                    hidden
+                  <img
+                    class="img-profile"
+                    id="addImg"
+                    src="/images/users/<%= user.avatar?user.avatar:'user.jpg' %>"
+                    alt=""
                   />
                 </div>
               </div>
@@ -65,7 +58,7 @@
                     id="inputName"
                     aria-describedby="nameHelp"
                     name="name"
-                    value="<%= formValues?formValues.name:'' %>"
+                    value="<%= user.name %>"
                   />
                 </div>
                 <div class="mb-3">
@@ -78,7 +71,7 @@
                     id="inputLast_name"
                     aria-describedby="lastnameHelp"
                     name="last_name"
-                    value="<%= formValues?formValues.last_name:'' %>"
+                    value="<%= user.last_name %>"
                   />
                 </div>
                 <div class="mb-3">
@@ -89,18 +82,10 @@
                     id="inputEmail"
                     aria-describedby="emailHelp"
                     name="email"
-                    value="<%= formValues?formValues.email:'' %>"
+                    value="<%= user.email %>"
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="inputPassword"
-                    name="password"
-                  />
-                </div>
+                
                 <div class="mb-3">
                   <label class="form-label">Preferencias (opcional)</label>
                   <div class="row">
@@ -111,6 +96,7 @@
                           type="checkbox"
                           value="Drama"
                           id="drama"
+                          <%= user.preferences.includes("Drama")? 'checked': null %>
                         />
                         <label class="form-check-label" for="drama"
                           >Drama</label
@@ -122,6 +108,7 @@
                           type="checkbox"
                           value="Fantasía"
                           id="fantasia"
+                          <%= user.preferences.includes("Fantasía")? 'checked': null %>
                         />
                         <label class="form-check-label" for="fantasia"
                           >Fantasía</label
@@ -133,6 +120,7 @@
                           type="checkbox"
                           value="Poesía"
                           id="poesia"
+                          <%= user.preferences.includes("Poesía") ? 'checked': null %>
                         />
                         <label class="form-check-label" for="poesia"
                           >Poesía</label
@@ -144,6 +132,7 @@
                           type="checkbox"
                           value="Terror"
                           id="terror"
+                          <%= user.preferences.includes("Terror") ? 'checked': null %>
                         />
                         <label class="form-check-label" for="terror"
                           >Terror</label
@@ -157,6 +146,7 @@
                           type="checkbox"
                           value="Juvenil"
                           id="juvenil"
+                          <%= user.preferences.includes("Juvenil") ? 'checked': null %>
                         />
                         <label class="form-check-label" for="juvenil"
                           >Juvenil</label
@@ -168,6 +158,7 @@
                           type="checkbox"
                           value="Ciencia ficción"
                           id="ciencia_ficcion"
+                          <%= user.preferences.includes("Ciencia ficción") ? 'checked': null %>
                         />
                         <label class="form-check-label" for="ciencia_ficcion"
                           >Ciencia ficción</label
@@ -177,8 +168,9 @@
                         <input
                           class="form-check-input preference"
                           type="checkbox"
-                          value="novela policíaca"
+                          value="Novela policíaca"
                           id="novela_policíaca"
+                          <%= user.preferences.includes("Novela policíaca") ? 'checked': null %>
                         />
                         <label class="form-check-label" for="novela_policiaca"
                           >Novela policíaca</label
@@ -190,6 +182,7 @@
                           type="checkbox"
                           value="Novela histórica"
                           id="novela_historica"
+                          <%= user.preferences.includes("Novela histórica") ? 'checked': null %>
                         />
                         <label class="form-check-label" for="novela_historica"
                           >Novela histórica</label
@@ -208,44 +201,34 @@
                   <%= typeof message != 'undefined' ? message: null %>
                 </p>
                 <div class="row gap-2 mt-5 align-items-center">
-                  <div class="col col-xl-2"><button type="submit" class=" buttn mouse">Registrarse</button></div>
-                  <div class="col col-xl-2">
+                  <div class="col-12 col-xl-2"><button type="submit" class="buttn mouse">Actualizar</button></div>
+                  <div class="col-12 col-xl-2">
                     <button
                       type="button"
-                      class=" buttn mouse"
-                      onclick="window.location.href = '/'"
+                      class="buttn mouse"
+                      onclick="
+                        window.location.href =
+                          '/users/profile/<%= user.user_id %>'
+                      "
                     >
                       Cancelar
                     </button>
                   </div>
-                  
-                    <div class="col col-xl-4">
-                      <h5 class=" text-xl-end mt-5 mt-xl-0">¿Ya eres miembro?</h5>
-                    </div>
-                    <div class="col col-xl-3"><button type="button" class=" buttn mouse" onclick="window.location.href='/users/login'">Inicia sesión</button></div>
-                  
+                  <div class="col-12 col-xl-7 text-xl-end">
+                    <label for="imgAdded" class="form-label buttn mouse mt-5 mt-xl-0">
+                      Editar imagen</label
+                    ><input
+                      type="file"
+                      class="form-control"
+                      id="imgAdded"
+                      name="img"
+                      hidden
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </form>
-          
-          
-        <% } else { %>
-
-
-          <div class="page-view confirm">
-            <div class="row text-center ">
-              <div class="col">
-                <div class=""><img src="/images/assets/check.jpg" alt=""></div>
-                <h2>Usuario registrado correctamente</h2>
-                <button class="buttn mouse" onclick="window.location.href='/back'">Volver</button>
-              </div>
-            </div>
-          </div>
-          
-
-          <% } %>
-
         </div>
       </main>
       <%- include('modules/scripts') %>

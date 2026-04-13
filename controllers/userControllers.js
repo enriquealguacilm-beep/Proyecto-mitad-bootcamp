@@ -20,7 +20,7 @@ class UserControllers {
 
       res.render('FormRegister', {message: "* Debes cumplimentar todos los campos", formValues: req.body});
     }
-    else{
+    else {
 
       bcrypt.hash(password.trim(), 10, (errHash, hashedPassword) => {
         if (errHash){
@@ -37,10 +37,14 @@ class UserControllers {
           }
           connection.query(sql, values, (err, result) => {
             if (err){
-              throw err;
+              if (err.errno == 1062){
+                res.render('formRegister', {formValues: req.body, formEnv: false, message: "* El Email ya está en uso"})
+              }
+              else {
+                throw err;
+              }
             }
             else {
-              
               
               res.render('formRegister', {formEnv: true});
             }
@@ -161,7 +165,60 @@ class UserControllers {
     })
   }
 
+  showEditUser = (req, res) => {
+    const {user_id} = req.params;
+    let sql = 'SELECT * FROM user WHERE user_id = ? AND user_is_deleted = 0';
 
+    connection.query(sql, [user_id], (err, result) => {
+      if (err){
+        throw err;
+      }
+      else {
+        console.log(result);
+        let preferences = result[0].preferences.split(", ");
+        result[0].preferences = preferences; 
+        res.render('editUser', {user: result[0],login, getLoginId})
+      }
+    })
+  }
+
+  editUser = (req, res) => {
+    const {user_id} = req.params;
+    const {name, last_name, email, preferences} =req.body;
+    let sqlUser = 'SELECT * FROM user WHERE user_id = ? AND user_is_deleted = 0';
+    let sql = 'UPDATE user SET name = ?, last_name = ?, email = ?, preferences = ? WHERE user_id = ? AND user_is_deleted = 0';
+    let values = [name, last_name, email, preferences, user_id];
+
+    if (req.file) {
+      sql = 'UPDATE user SET name = ?, last_name = ?, email = ?, preferences = ?, avatar = ? WHERE user_id = ? AND user_is_deleted = 0';
+      values = [name, last_name, email, preferences, req.file.filename, user_id];
+
+    }
+    connection.query(sqlUser, [user_id], (errUs, resultUs) => {
+      if (errUs){
+        throw errUs;
+      }
+      else {
+        connection.query(sql, values, (err, result) => {
+          if (err){
+            if (err.errno == 1062){
+             res.render('editUser', {user: resultUs[0],login, getLoginId, message: "* El Email ya está en uso"})
+            }
+            else {
+            throw err;
+            }
+          }
+          else {
+             res.redirect(`/users/profile/${user_id}`);
+          }
+        })
+
+
+        
+      }
+    })
+       
+  }
 
 }
 

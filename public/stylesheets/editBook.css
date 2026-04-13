@@ -1,19 +1,40 @@
+h1 {
+  padding: 1rem;
+}
+
+.navbar {
+  block-size: 4rem;
+}
+
 .page-view {
   background-color: var(--cl-light);
   border: 2px solid var(--cl-main);
   border-radius: 20px;
+  margin-block-end: 1rem;
 
   .data {
     padding-block: 3rem;
-    padding-inline-end: 5rem;
+    padding-inline: 6rem;
+
+    @media (width < 585px) {
+      padding-inline: 2rem;
+    }
   }
 
   .img {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
 
+    .img-profile {
+      inline-size: 100%;
+      padding: 0.5rem;
+      @media (width < 585px) {
+        inline-size: clamp(220px, 90px + 21.667vw, 320px);
+      }
+    }
+  }
+  /*  class="d-flex gap-2 mt-5 align-items-center */
   .login {
     padding-block: 3rem;
     padding-inline: 15rem;
@@ -22,6 +43,11 @@
 
 .confirm {
   padding: 10rem;
+
+  @media (width <585px) {
+    padding: 1rem;
+  }
+
   h2 {
     padding-block: 3rem;
   }

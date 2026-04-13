@@ -11,7 +11,7 @@
     <div class="index">
       <header>
         <nav class="web-navbar">
-          <div class="row align-items-center nvbar">
+          <div class="row align-items-center navbar">
             <div class="col">
               <button
                 class="buttn mouse mx-2"
@@ -21,7 +21,7 @@
               </button>
             </div>
             <button
-              class="buttn mouse mx-2"
+              class="buttn mouse mx-4"
               onclick="window.location.href = '/back'"
             >
               Atrás
@@ -30,8 +30,8 @@
         </nav>
       </header>
       <main>
-        <div class="container-fluid p-5">
-          <h2 class="text-center">Editar libro</h2>
+        <div class="container-fluid p-xl-5">
+          <h1 class="text-center">Editar libro</h1>
           <form
             action="/books/editBook/<%= book.book_id %>/<%= book.user_id %>"
             method="post"
@@ -39,16 +39,17 @@
             enctype="multipart/form-data"
           >
             <div class="row">
-              <div class="col-4 img">
+              <div class="col-12 col-xl-4 img">
                 <div class="mb-3">
                   <img
                     id="addImg"
                     src="/images/books/<%= book.picture?book.picture:'book.jpg' %>"
                     alt=""
+                    class="img-profile"
                   />
                 </div>
               </div>
-              <div class="col-8 data">
+              <div class="col-12 col-xl-8 data">
                 <div class="mb-3">
                   <label for="inputTitle" class="form-label"
                     >Título del libro</label
@@ -88,7 +89,7 @@
                     value="<%= book.year_written %>"
                   />
                   <p class="text-danger">
-                    <%= typeof messageYear != 'undefined' ? messageYear : null
+                    <%= typeof message != 'undefined' ? message : null
                     %>
                   </p>
                 </div>
@@ -117,43 +118,44 @@
                 <div class="mb-3">
                   <label for="rating" class="form-label"></label>
                   <div class="starrating">
-                    <input type="radio" id="star5" name="rating" value="5" />
+                    <input type="radio" id="star5" name="rating" value="5" <%= book.rating == 5 ? 'checked': null %>/>
                     <label for="star5" title="5 estrellas">★</label>
-                    <input type="radio" id="star4" name="rating" value="4" />
+                    <input type="radio" id="star4" name="rating" value="4" <%= book.rating == 4 ? 'checked': null %> />
                     <label for="star4" title="4 estrellas">★</label>
-                    <input type="radio" id="star3" name="rating" value="3" />
+                    <input type="radio" id="star3" name="rating" value="3" <%= book.rating == 3 ? 'checked': null %>/>
                     <label for="star3" title="3 estrellas">★</label>
-                    <input type="radio" id="star2" name="rating" value="2" />
+                    <input type="radio" id="star2" name="rating" value="2" <%= book.rating == 2 ? 'checked': null %>/>
                     <label for="star2" title="2 estrellas">★</label>
-                    <input type="radio" id="star1" name="rating" value="1" />
+                    <input type="radio" id="star1" name="rating" value="1" <%= book.rating == 1 ? 'checked': null %>/>
                     <label for="star1" title="1 estrella">★</label>
                   </div>
                 </div>
-                <p class="text-danger">
-                  <%= typeof messageRating != 'undefined' ? messageRating : null
-                  %>
-                </p>
-                <div class="d-flex gap-2 mb-2">
-                  <button type="submit" class="buttn mouse">Actualizar</button>
-                  <button
-                    type="button"
-                    class="buttn mouse"
-                    onclick="
-                      window.location.href =
-                        '/users/profile/<%= book.user_id %>'
-                    "
-                  >
-                    Cancelar
-                  </button>
-                  <label for="imgAdded" class="form-label buttn mouse mx-5">
-                    Editar imagen</label
-                  ><input
-                    type="file"
-                    class="form-control"
-                    id="imgAdded"
-                    name="img"
-                    hidden
-                  />
+               
+                <div class="row gap-2 mb-2">
+                  <div class="col-12 col-xl-2"><button type="submit" class="buttn mouse">Actualizar</button></div>
+                  <div class="col-12 col-xl-2">
+                    <button
+                      type="button"
+                      class="buttn mouse"
+                      onclick="
+                        window.location.href =
+                          '/users/profile/<%= book.user_id %>'
+                      "
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                  <div class="col-12 col-xl-7 text-xl-end">
+                    <label for="imgAdded" class="form-label buttn mouse mt-5 mt-xl-0">
+                      Editar imagen</label
+                    ><input
+                      type="file"
+                      class="form-control"
+                      id="imgAdded"
+                      name="img"
+                      hidden
+                    />
+                  </div>
                 </div>
               </div>
             </div>
