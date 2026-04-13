@@ -52,3 +52,6 @@ h1 {
     padding-block: 3rem;
   }
 }
+.container-fluid {
+  block-size: 85vh;
+}
