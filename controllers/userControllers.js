@@ -158,6 +158,7 @@ class UserControllers {
             throw errB;
           }
           else {
+            login = false;
             res.redirect('/back');
           }
         })
